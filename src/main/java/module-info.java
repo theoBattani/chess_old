@@ -1,7 +1,7 @@
 module fr.theo {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     requires javafx.fxml;
     requires javafx.media;
-    opens fr.theo to javafx.fxml;
+    opens fr.theo.view.control to javafx.fxml;
     exports fr.theo;
 }
