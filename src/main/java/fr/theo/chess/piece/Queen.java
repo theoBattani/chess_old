@@ -1,5 +1,25 @@
+
 package fr.theo.chess.piece;
 
-public class Queen {
-  
+import fr.theo.chess.board.Tile;
+
+public class Queen extends Piece {
+  public Queen(boolean white, Tile tile) {
+      super(white, tile);
+  }
+
+  @Override
+  protected void computeValidTargets() {
+      // TODO Auto-generated method stub
+      
+  }
 }
+
+
+
+
+
+
+
+
+

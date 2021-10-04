@@ -1,34 +1,46 @@
+
 package fr.theo.chess.piece;
 
 import java.util.ArrayList;
 
+import fr.theo.chess.board.Tile;
 import fr.theo.chess.InvalidTargetException;
 
 public abstract class Piece {
   
-  private int index;
   private boolean white;
-  private ArrayList<Integer> validTargets;
+  private Tile tile;
+  private ArrayList<Tile> validTargets;
 
-  private 
-
-  public Piece(boolean white, int index) {
+  public Piece(boolean white, Tile tile) {
     this.white = white;
-    this.validTargets = new ArrayList<Integer>();
+    this.tile = tile;
+    this.validTargets = new ArrayList<Tile>();
   }
+
+  public Tile getTile() {return this.tile;}
+
+  public void setTile(Tile tile) {this.tile = tile;}
 
   public boolean isWhite() {return this.white;}
 
-  protected void moveOnTarget(int targetIndex) throws InvalidTargetException {
-    if (!targetIsValid(targetIndex)) throw new InvalidTargetException();
-    else {
-      this.index = targetIndex;
-    }
+  protected void moveOnTarget(Tile target) throws InvalidTargetException {
+    if (!targetIsValid(tile)) throw new InvalidTargetException();
+    else {this.tile = target;}
   }
 
-  private boolean targetIsValid(int target) {
+  private boolean targetIsValid(Tile target) {
     return this.validTargets.contains(target);
   }
 
-  protected abstract void computeValidTarget();
+  protected abstract void computeValidTargets();
 }
+
+
+
+
+
+
+
+
+

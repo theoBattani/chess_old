@@ -1,17 +1,15 @@
+
 package fr.theo.chess.piece;
+
+import fr.theo.chess.board.Tile;
 
 public class Bishop extends Piece {
 
-  public Bishop(boolean white, int column) {
-    super(white, computeIndex(white, column));
+  public Bishop(boolean white, Tile tile) {
+    super(white, tile);
   }
 
-
-  private static int computeIndex(boolean white, int column) {
-    return white? column: 64 - (8 - column); 
-  }
-  
-  @Override protected void computeValidTarget() {
+  @Override protected void computeValidTargets() {
     // TODO Auto-generated method stub
   }
 }

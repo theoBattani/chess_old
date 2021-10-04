@@ -1,7 +1,7 @@
 
 package fr.theo.view.control;
 
-import fr.theo.view.sprite.ChessBoard;
+import fr.theo.view.ChessView;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -19,15 +19,15 @@ public class ViewController {
   @FXML private AnchorPane anchorPane;  // fx:id="anchorPane"
   @FXML private Pane pane;              // fx:id="pane"
 
-  ChessBoard board;
+  ChessView chessView;
 
   // This method is called by the FXMLLoader when initialization is complete
   @FXML void initialize() {
     assert scene != null : "fx:id=\"scene\" was not injected: check your FXML file 'view.fxml'.";
     assert stage != null : "fx:id=\"stage\" was not injected: check your FXML file 'view.fxml'.";
     
-    board = new ChessBoard(480);
-    pane.getChildren().add(board);
+    chessView = new ChessView();
+    pane.getChildren().add(chessView.getBoardView());
 
     scene.widthProperty().addListener(widthProperty -> onWidth(widthProperty));
     scene.heightProperty().addListener(heightProperty -> onHeight(heightProperty));
@@ -39,8 +39,7 @@ public class ViewController {
 
   private void onHeight(Observable heightProperty) {
     double height = ((DoubleExpression) heightProperty).getValue();
-    board.setFitWidth(height);
-    board.setFitHeight(height);
-    stage.setMinWidth(board.getFitHeight()+16);
+    chessView.resize(height);
+    stage.setMinWidth(chessView.getBoardView().getFitHeight()+16);
   }
 }

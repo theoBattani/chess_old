@@ -1,16 +1,17 @@
 
 package fr.theo.chess.piece;
 
-public abstract class Pawn extends Piece {
+import fr.theo.chess.board.Tile;
 
-  int columnIndex;
+public class Pawn extends Piece {
 
-  public Pawn(boolean white, int column) {
-    super(white, computeIndex(white, column));
-    this.columnIndex = column;
+  public Pawn(boolean white, Tile tile) {
+    super(white, tile);
   }
 
-  private static int computeIndex(boolean white, int column) {
-    return white? column + 8: 64 - (8 - column) - 8;
+  @Override
+  protected void computeValidTargets() {
+    // TODO Auto-generated method stub
+    
   }
 }
