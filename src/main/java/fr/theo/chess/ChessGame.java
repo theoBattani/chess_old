@@ -15,6 +15,7 @@ public class ChessGame {
   private ArrayList<Piece> whitePieces;
   private ArrayList<Piece> deadBlackPieces;
   private ArrayList<Piece> deadWhitePieces;
+
   public ChessGame() {
     this.whiteDran = true;
     this.move = 0;
