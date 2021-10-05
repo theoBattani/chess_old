@@ -19,6 +19,7 @@ public abstract class Piece {
   }
 
   public Tile getTile() {return this.tile;}
+  public int getIndex() {return this.tile.getIndex();}
 
   public void setTile(Tile tile) {this.tile = tile;}
 

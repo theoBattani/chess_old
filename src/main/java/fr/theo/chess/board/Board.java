@@ -11,4 +11,6 @@ public class Board {
       tiles[index] = new Tile(index);
     }
   }
+
+  public Tile getTile(int index) {return tiles[index];}
 }
