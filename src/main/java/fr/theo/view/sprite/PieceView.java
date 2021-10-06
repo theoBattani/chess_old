@@ -16,6 +16,7 @@ public class PieceView extends Sprite {
   public PieceView(Piece piece, double size, Image image) {
     super(image);
     this.piece = piece;
+    this.index = this.piece.getIndex();
     this.resize(size);
   }
 
@@ -24,6 +25,7 @@ public class PieceView extends Sprite {
   public ArrayList<Integer> getValidIndices() {return piece.getValidIndices();}
 
   public void setPos() {
+    this.index = this.piece.getIndex();
     this.setX((this.piece.getIndex() % 8) * this.size);
     this.setY((7 - this.piece.getIndex() / 8) * this.size);
   }

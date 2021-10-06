@@ -78,8 +78,8 @@ public class ViewController {
       }
       if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
         if (select) {
-          selection.setX(mouseX - chessView.getTileSize() / 2);
-          selection.setY(mouseY - chessView.getTileSize() / 2);
+          selection.setX(mouseX - selection.getFitWidth() / 2);
+          selection.setY(mouseY - selection.getFitHeight() / 2);
           selection.toFront();
         }
       }
@@ -89,9 +89,15 @@ public class ViewController {
         int index = 8 * y + x;
         if (!select) {
           selection = chessView.getPieceAt(index);
-          if (selection != null) select = true;
+          if (selection != null) {
+            select = true;
+            selection.setFitWidth(chessView.getTileSize() * 1.5);
+            selection.setFitHeight(chessView.getTileSize() * 1.5);
+            selection.setX(mouseX - selection.getFitWidth() / 2);
+            selection.setY(mouseY - selection.getFitHeight() / 2);
+            selection.toFront();
+          }
           if (select) {
-            System.out.println(selection.getValidIndices());
             for (int validIndex: selection.getValidIndices()) {
               highlights.add(new Rectangle(
                 (validIndex % 8) * chessView.getTileSize(),
@@ -119,6 +125,8 @@ public class ViewController {
           chessView.dropAt(selection, index);
           pane.getChildren().removeAll(highlights);
           highlights.removeAll(highlights);
+          selection.setFitWidth(chessView.getTileSize());
+          selection.setFitHeight(chessView.getTileSize());
           select = false;
         }
       }

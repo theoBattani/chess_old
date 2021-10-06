@@ -11,13 +11,19 @@ public abstract class Piece {
   private int index;
   private int rankIndex;
   private int fileIndex;
+  private Piece[] pieces;
   private ArrayList<Integer> validIndices;
+  private ArrayList<Integer> freeIndices;
+  private ArrayList<Integer> occupiedIndices;
 
-  public Piece(boolean white, int index) {
+  public Piece(Piece[] pieces, boolean white, int index) {
     this.white = white;
     this.index = index;
-    this.computeIndices();
+    this.pieces = pieces;
     this.validIndices = new ArrayList<Integer>();
+    this.freeIndices = new ArrayList<Integer>();
+    this.occupiedIndices = new ArrayList<Integer>();
+    this.computeIndices();
     this.computeTargets();
   }
 
@@ -28,24 +34,59 @@ public abstract class Piece {
 
   public boolean isWhite() {return this.white;}
 
+  public void update() {this.computeTargets();}
+
   public void move(int index) {
     try {
       this.moveOnTarget(index);
-      this.computeTargets();
+      for (Piece piece: this.pieces) {
+        if (piece != null) {
+          piece.computeIndices();
+          piece.computeTargets();
+        }
+      }
     } catch (InvalidTargetException e) {
       e.printStackTrace();
     }
   }
 
-  protected int indexOf(int row, int column) {return 8 * column + row;}
+  protected int indexOf(int x, int y) {return 8 * y + x;}
 
   protected void moveOnTarget(int targetIndex) throws InvalidTargetException {
     if (!targetIsValid(targetIndex)) throw new InvalidTargetException();
-    else {this.index = targetIndex;}
+    else {
+      this.switchInTab(this.index, targetIndex);
+      this.index = targetIndex;
+    }
+  }
+
+  protected boolean isValid(int x, int y) {
+    return (x >= 0 && x < 8) && (y >= 0 && y < 8);
+  }
+
+  protected boolean addIfValid(int x, int y) {
+    int index = this.indexOf(x, y);
+    if (isValid(x, y)) {
+      if (targetIsOccupied(index)) {
+        if (this.pieces[index].isWhite()) return false;
+      }
+      this.getValidIndices().add(index);
+      return true;
+    }
+    return false;
+  }
+
+  private void switchInTab(int from, int to) {
+    this.pieces[to] = this;
+    this.pieces[from] = null;
   }
 
   private boolean targetIsValid(int targetIndex) {
     return this.validIndices.contains(targetIndex);
+  }
+
+  private boolean targetIsOccupied(int index) {
+    return this.pieces[index] != null;
   }
 
   private void computeIndices() {
@@ -55,6 +96,8 @@ public abstract class Piece {
 
   private void computeTargets() {
     this.validIndices.removeAll(this.validIndices);
+    this.freeIndices.removeAll(this.freeIndices);
+    this.occupiedIndices.removeAll(this.occupiedIndices);
     this.computeValidTargets();
   }
 

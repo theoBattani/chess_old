@@ -17,7 +17,6 @@ public class ChessView {
 
   private ChessGame game;
   private BoardView board;
-  private PieceView[] pieces;
   private ArrayList<PieceView> piecesList;
 
   private double size;
@@ -30,8 +29,8 @@ public class ChessView {
     this.tileSize = this.size / 8;
     this.piecesList = new ArrayList<PieceView>();
     try {
-      this.pieces = createPieces(this.tileSize);
-      for (PieceView piece: this.pieces) {
+      PieceView[] pieces = createPieces(this.tileSize);
+      for (PieceView piece: pieces) {
         if (piece != null) this.piecesList.add(piece); 
       }
     } catch (FileNotFoundException e) {
@@ -40,16 +39,22 @@ public class ChessView {
   }
 
   public ImageView getBoardView() {return this.board;}
-  public PieceView[] getPieces() {return this.pieces;}
   public ArrayList<PieceView> getPiecesList() {return this.piecesList;}
-  public PieceView getPieceAt(int index) {return this.pieces[index];}
   public double getSize() {return this.size;}
   public double getTileSize() {return this.tileSize;}
+
+  public PieceView getPieceAt(int index) {
+    for (PieceView piece: this.piecesList) {
+      if (piece.getIndex() == index) return piece;
+    }
+    return null;
+  }
 
   public void resize(double size) {
     this.board.setFitWidth(size);
     this.board.setFitHeight(size);
     this.size = size;
+    this.tileSize = size / 8;
     for (PieceView piece: this.piecesList) {piece.resize(this.size/8);}
   }
   

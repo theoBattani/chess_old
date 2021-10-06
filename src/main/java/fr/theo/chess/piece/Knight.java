@@ -3,8 +3,8 @@ package fr.theo.chess.piece;
 
 public class Knight extends Piece{
 
-  public Knight(boolean white, int index) {
-    super(white, index);
+  public Knight(Piece[] pieces, boolean white, int index) {
+    super(pieces, white, index);
   }
 
   @Override
@@ -20,16 +20,6 @@ public class Knight extends Piece{
     addIfValid(x-2, y+1);
     addIfValid(x-2, y-1);
   }
-
-  private boolean isValid(int x, int y) {
-    return (x >= 0 && x < 8) && (y >= 0 && y < 8);
-  }
-
-  private void addIfValid(int x, int y) {
-    int index = this.indexOf(x, y);
-    if (isValid(x, y)) this.getValidIndices().add(index);
-  }
-  
 }
 
 
