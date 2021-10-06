@@ -1,11 +1,9 @@
 
 package fr.theo.chess.piece;
 
-import fr.theo.chess.board.Tile;
-
 public class Queen extends Piece {
-  public Queen(boolean white, Tile tile) {
-      super(white, tile);
+  public Queen(boolean white, int index) {
+      super(white, index);
   }
 
   @Override

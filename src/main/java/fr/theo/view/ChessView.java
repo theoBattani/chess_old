@@ -52,6 +52,14 @@ public class ChessView {
     this.size = size;
     for (PieceView piece: this.piecesList) {piece.resize(this.size/8);}
   }
+  
+  public void dropAt(PieceView pieceView, int index) {
+    if (pieceView.getPiece().getValidIndices().contains(index)) {
+      pieceView.getPiece().move(index);
+      pieceView.setPos();
+    }
+    pieceView.setPos();
+  }
 
   private PieceView[] createPieces(double pieceSize) throws FileNotFoundException {
     PieceView[] output = new PieceView[64];
@@ -78,3 +86,11 @@ public class ChessView {
     return output;
   }
 }
+
+
+
+
+
+
+
+

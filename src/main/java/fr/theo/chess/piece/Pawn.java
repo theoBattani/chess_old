@@ -1,17 +1,20 @@
 
 package fr.theo.chess.piece;
 
-import fr.theo.chess.board.Tile;
-
 public class Pawn extends Piece {
 
-  public Pawn(boolean white, Tile tile) {
-    super(white, tile);
+  public Pawn(boolean white, int index) {
+    super(white, index);
   }
 
   @Override
   protected void computeValidTargets() {
-    // TODO Auto-generated method stub
-    
+    this.getValidIndices().removeAll(this.getValidIndices());
+    if (this.isWhite()) {
+      if (this.getRankIndex() == 1) {
+        this.getValidIndices().add(this.getIndex() + 8);
+        this.getValidIndices().add(this.getIndex() + 16);
+      }
+    } 
   }
 }

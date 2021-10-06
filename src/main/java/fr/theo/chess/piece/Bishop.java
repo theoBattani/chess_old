@@ -1,12 +1,10 @@
 
 package fr.theo.chess.piece;
 
-import fr.theo.chess.board.Tile;
-
 public class Bishop extends Piece {
 
-  public Bishop(boolean white, Tile tile) {
-    super(white, tile);
+  public Bishop(boolean white, int index) {
+    super(white, index);
   }
 
   @Override protected void computeValidTargets() {
