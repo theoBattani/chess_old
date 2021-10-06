@@ -13,6 +13,10 @@ import java.util.ArrayList;
 
 public class ChessGame {
 
+  private static final String STARTING_POSITION = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
+  private String fen = STARTING_POSITION;
+
   private boolean whiteDran;
   private int move;
   private Piece[] pieces;
@@ -32,7 +36,6 @@ public class ChessGame {
     this.deadBlackPieces = new ArrayList<Piece>();
     this.deadWhitePieces = new ArrayList<Piece>();
     this.initPieces();
-    for (Piece piece: this.allPieces) piece.update();
   }
 
   public boolean istWhiteDran() {return this.whiteDran;}
@@ -54,6 +57,7 @@ public class ChessGame {
   private void initPieces() {
     this.initWhitePieces();
     this.initBlackPieces();
+    for (Piece piece: this.allPieces) piece.update();
   }
 
   private void initBlackPieces() {

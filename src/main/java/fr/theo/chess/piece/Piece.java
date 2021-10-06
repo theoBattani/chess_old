@@ -24,7 +24,6 @@ public abstract class Piece {
     this.freeIndices = new ArrayList<Integer>();
     this.occupiedIndices = new ArrayList<Integer>();
     this.computeIndices();
-    this.computeTargets();
   }
 
   public int getIndex() {return this.index;}
@@ -55,7 +54,7 @@ public abstract class Piece {
   protected void moveOnTarget(int targetIndex) throws InvalidTargetException {
     if (!targetIsValid(targetIndex)) throw new InvalidTargetException();
     else {
-      this.switchInTab(this.index, targetIndex);
+      this.moveInTab(this.index, targetIndex);
       this.index = targetIndex;
     }
   }
@@ -65,18 +64,21 @@ public abstract class Piece {
   }
 
   protected boolean addIfValid(int x, int y) {
+    if (!isValid(x, y)) return false;
     int index = this.indexOf(x, y);
-    if (isValid(x, y)) {
-      if (targetIsOccupied(index)) {
-        if (this.pieces[index].isWhite()) return false;
+    if (targetIsOccupied(index)) {
+      if (this.isWhite()) {
+        if (!this.pieces[index].isWhite()) this.getValidIndices().add(index);
+        return false;
       }
-      this.getValidIndices().add(index);
-      return true;
+      if (this.pieces[index].isWhite()) this.getValidIndices().add(index);
+      return false;
     }
-    return false;
+    this.getValidIndices().add(index);
+    return true;
   }
 
-  private void switchInTab(int from, int to) {
+  private void moveInTab(int from, int to) {
     this.pieces[to] = this;
     this.pieces[from] = null;
   }

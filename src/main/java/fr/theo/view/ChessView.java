@@ -68,16 +68,14 @@ public class ChessView {
 
   private PieceView[] createPieces(double pieceSize) throws FileNotFoundException {
     PieceView[] output = new PieceView[64];
-    output[0] = (new PieceView(game.getPieceByIndex(0), pieceSize, new Image(new FileInputStream(Assets.WHITE_ROOK))));
-    output[1] = (new PieceView(game.getPieceByIndex(1), pieceSize, new Image(new FileInputStream(Assets.WHITE_KNIGHT))));
-    output[2] = (new PieceView(game.getPieceByIndex(2), pieceSize, new Image(new FileInputStream(Assets.WHITE_BISHOP))));
-    output[3] = (new PieceView(game.getPieceByIndex(3), pieceSize, new Image(new FileInputStream(Assets.WHITE_QUEEN))));
-    output[4] = (new PieceView(game.getPieceByIndex(4), pieceSize, new Image(new FileInputStream(Assets.WHITE_KING))));
-    output[5] = (new PieceView(game.getPieceByIndex(5), pieceSize, new Image(new FileInputStream(Assets.WHITE_BISHOP))));
-    output[6] = (new PieceView(game.getPieceByIndex(6), pieceSize, new Image(new FileInputStream(Assets.WHITE_KNIGHT))));
-    output[7] = (new PieceView(game.getPieceByIndex(7), pieceSize, new Image(new FileInputStream(Assets.WHITE_ROOK))));
-    for (int index = 8; index < 16; index++) 
-      output[index] = (new PieceView(game.getPieceByIndex(index), pieceSize, new Image(new FileInputStream(Assets.WHITE_PAWN))));
+    output[0]  = (new PieceView(game.getPieceByIndex(0), pieceSize, new Image(new FileInputStream(Assets.WHITE_ROOK))));
+    output[1]  = (new PieceView(game.getPieceByIndex(1), pieceSize, new Image(new FileInputStream(Assets.WHITE_KNIGHT))));
+    output[2]  = (new PieceView(game.getPieceByIndex(2), pieceSize, new Image(new FileInputStream(Assets.WHITE_BISHOP))));
+    output[3]  = (new PieceView(game.getPieceByIndex(3), pieceSize, new Image(new FileInputStream(Assets.WHITE_QUEEN))));
+    output[4]  = (new PieceView(game.getPieceByIndex(4), pieceSize, new Image(new FileInputStream(Assets.WHITE_KING))));
+    output[5]  = (new PieceView(game.getPieceByIndex(5), pieceSize, new Image(new FileInputStream(Assets.WHITE_BISHOP))));
+    output[6]  = (new PieceView(game.getPieceByIndex(6), pieceSize, new Image(new FileInputStream(Assets.WHITE_KNIGHT))));
+    output[7]  = (new PieceView(game.getPieceByIndex(7), pieceSize, new Image(new FileInputStream(Assets.WHITE_ROOK))));
     output[56] = (new PieceView(game.getPieceByIndex(56), pieceSize, new Image(new FileInputStream(Assets.BLACK_ROOK))));
     output[57] = (new PieceView(game.getPieceByIndex(57), pieceSize, new Image(new FileInputStream(Assets.BLACK_KNIGHT))));
     output[58] = (new PieceView(game.getPieceByIndex(58), pieceSize, new Image(new FileInputStream(Assets.BLACK_BISHOP))));
@@ -86,6 +84,8 @@ public class ChessView {
     output[61] = (new PieceView(game.getPieceByIndex(61), pieceSize, new Image(new FileInputStream(Assets.BLACK_BISHOP))));
     output[62] = (new PieceView(game.getPieceByIndex(62), pieceSize, new Image(new FileInputStream(Assets.BLACK_KNIGHT))));
     output[63] = (new PieceView(game.getPieceByIndex(63), pieceSize, new Image(new FileInputStream(Assets.BLACK_ROOK))));
+    for (int index = 8; index < 16; index++) 
+      output[index] = (new PieceView(game.getPieceByIndex(index), pieceSize, new Image(new FileInputStream(Assets.WHITE_PAWN))));
     for (int index = 48; index < 56; index++) 
       output[index] = (new PieceView(game.getPieceByIndex(index), pieceSize, new Image(new FileInputStream(Assets.BLACK_PAWN))));
     return output;
