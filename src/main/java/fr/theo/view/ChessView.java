@@ -1,7 +1,7 @@
 
 package fr.theo.view;
 
-import fr.theo.chess.ChessGame;
+import fr.theo.chess.Game;
 import fr.theo.local.Assets;
 import fr.theo.view.sprite.BoardView;
 import fr.theo.view.sprite.PieceView;
@@ -15,14 +15,14 @@ import javafx.scene.image.ImageView;
 
 public class ChessView {
 
-  private ChessGame game;
+  private Game game;
   private BoardView board;
   private ArrayList<PieceView> piecesList;
 
   private double size;
   private double tileSize;
 
-  public ChessView(ChessGame game) {
+  public ChessView(Game game) {
     this.game = game;
     this.board = new BoardView(480);
     this.size = (double) 480;

@@ -11,39 +11,23 @@ import fr.theo.chess.piece.Pawn;
 
 import java.util.ArrayList;
 
-public class ChessGame {
+public class Game {
 
-  private static final String STARTING_POSITION = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-
-  private String fen = STARTING_POSITION;
-
-  private boolean whiteDran;
-  private int move;
   private Piece[] pieces;
   private ArrayList<Piece> allPieces;
   private ArrayList<Piece> blackPieces;
   private ArrayList<Piece> whitePieces;
-  private ArrayList<Piece> deadBlackPieces;
-  private ArrayList<Piece> deadWhitePieces;
 
-  public ChessGame() {
-    this.whiteDran = true;
-    this.move = 0;
+  public Game() {
     this.pieces = new Piece[64];
     this.allPieces = new ArrayList<Piece>();
     this.blackPieces = new ArrayList<Piece>();
     this.whitePieces = new ArrayList<Piece>();
-    this.deadBlackPieces = new ArrayList<Piece>();
-    this.deadWhitePieces = new ArrayList<Piece>();
     this.initPieces();
   }
 
-  public boolean istWhiteDran() {return this.whiteDran;}
-  public int getMove() {return this.move;}
   public ArrayList<Piece> getBlackPieces() {return blackPieces;}
   public ArrayList<Piece> getWhitePieces() {return whitePieces;}
-  public ArrayList<Piece> getDeadBlackPieces() {return deadBlackPieces;}
-  public ArrayList<Piece> getDeadWhitePieces() {return deadWhitePieces;}
   public ArrayList<Piece> getAllPieces() {return allPieces();}
   public Piece getPieceByIndex(int index) {return this.pieces[index];}
 
@@ -55,8 +39,8 @@ public class ChessGame {
   }
 
   private void initPieces() {
-    this.initWhitePieces();
     this.initBlackPieces();
+    this.initWhitePieces();
     for (Piece piece: this.allPieces) piece.update();
   }
 
@@ -94,6 +78,8 @@ public class ChessGame {
     }
   }
 }
+
+
 
 
 

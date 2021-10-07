@@ -6,23 +6,19 @@ import java.util.ArrayList;
 import fr.theo.chess.InvalidTargetException;
 
 public abstract class Piece {
-  
+
   private boolean white;
   private int index;
   private int rankIndex;
   private int fileIndex;
   private Piece[] pieces;
   private ArrayList<Integer> validIndices;
-  private ArrayList<Integer> freeIndices;
-  private ArrayList<Integer> occupiedIndices;
 
   public Piece(Piece[] pieces, boolean white, int index) {
     this.white = white;
     this.index = index;
     this.pieces = pieces;
     this.validIndices = new ArrayList<Integer>();
-    this.freeIndices = new ArrayList<Integer>();
-    this.occupiedIndices = new ArrayList<Integer>();
     this.computeIndices();
   }
 
@@ -98,8 +94,6 @@ public abstract class Piece {
 
   private void computeTargets() {
     this.validIndices.removeAll(this.validIndices);
-    this.freeIndices.removeAll(this.freeIndices);
-    this.occupiedIndices.removeAll(this.occupiedIndices);
     this.computeValidTargets();
   }
 

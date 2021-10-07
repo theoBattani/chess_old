@@ -56,29 +56,29 @@ public class Rook extends Piece {
     System.out.println(this.addIfValid(x, y+6));
     System.out.println(this.addIfValid(x, y+7));
 
-    // System.out.println(this.addIfValid(x+1, y));
-    // System.out.println(this.addIfValid(x+2, y));
-    // System.out.println(this.addIfValid(x+3, y));
-    // System.out.println(this.addIfValid(x+4, y));
-    // System.out.println(this.addIfValid(x+5, y));
-    // System.out.println(this.addIfValid(x+6, y));
-    // System.out.println(this.addIfValid(x+7, y));
+    System.out.println(this.addIfValid(x+1, y));
+    System.out.println(this.addIfValid(x+2, y));
+    System.out.println(this.addIfValid(x+3, y));
+    System.out.println(this.addIfValid(x+4, y));
+    System.out.println(this.addIfValid(x+5, y));
+    System.out.println(this.addIfValid(x+6, y));
+    System.out.println(this.addIfValid(x+7, y));
 
-    // System.out.println(this.addIfValid(x-1, y));
-    // System.out.println(this.addIfValid(x-2, y));
-    // System.out.println(this.addIfValid(x-3, y));
-    // System.out.println(this.addIfValid(x-4, y));
-    // System.out.println(this.addIfValid(x-5, y));
-    // System.out.println(this.addIfValid(x-6, y));
-    // System.out.println(this.addIfValid(x-7, y));
+    System.out.println(this.addIfValid(x-1, y));
+    System.out.println(this.addIfValid(x-2, y));
+    System.out.println(this.addIfValid(x-3, y));
+    System.out.println(this.addIfValid(x-4, y));
+    System.out.println(this.addIfValid(x-5, y));
+    System.out.println(this.addIfValid(x-6, y));
+    System.out.println(this.addIfValid(x-7, y));
 
-    // System.out.println(this.addIfValid(x, y-1));
-    // System.out.println(this.addIfValid(x, y-2));
-    // System.out.println(this.addIfValid(x, y-3));
-    // System.out.println(this.addIfValid(x, y-4));
-    // System.out.println(this.addIfValid(x, y-5));
-    // System.out.println(this.addIfValid(x, y-6));
-    // System.out.println(this.addIfValid(x, y-7));
+    System.out.println(this.addIfValid(x, y-1));
+    System.out.println(this.addIfValid(x, y-2));
+    System.out.println(this.addIfValid(x, y-3));
+    System.out.println(this.addIfValid(x, y-4));
+    System.out.println(this.addIfValid(x, y-5));
+    System.out.println(this.addIfValid(x, y-6));
+    System.out.println(this.addIfValid(x, y-7));
 
     // this.addIfValid(x+1, y);
     // this.addIfValid(x+2, y);

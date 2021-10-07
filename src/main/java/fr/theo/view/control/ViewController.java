@@ -1,7 +1,8 @@
 
 package fr.theo.view.control;
 
-import fr.theo.chess.ChessGame;
+import fr.theo.chess.Game;
+
 import fr.theo.view.ChessView;
 import fr.theo.view.sprite.PieceView;
 
@@ -27,7 +28,7 @@ public class ViewController {
   @FXML private AnchorPane anchorPane;  // fx:id="anchorPane"
   @FXML private Pane pane;              // fx:id="pane"
 
-  private ChessGame game;
+  private Game game;
   private ChessView chessView;
 
   // This method is called by the FXMLLoader when initialization is complete
@@ -35,7 +36,7 @@ public class ViewController {
     assert scene != null : "fx:id=\"scene\" was not injected: check your FXML file 'view.fxml'.";
     assert stage != null : "fx:id=\"stage\" was not injected: check your FXML file 'view.fxml'.";
     
-    game = new ChessGame();
+    game = new Game();
     chessView = new ChessView(game);
     pane.getChildren().add(chessView.getBoardView());
     pane.getChildren().addAll(chessView.getPiecesList());
