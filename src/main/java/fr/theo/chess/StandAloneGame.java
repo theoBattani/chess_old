@@ -1,6 +1,7 @@
 
 package fr.theo.chess;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class StandAloneGame {
@@ -16,7 +17,7 @@ public class StandAloneGame {
 
   private int[]  board;                // piece placement (from white perspective)  
   private char   active;               // active color 
-  private String castlingAvailability; 
+  private String castlingAvailability;  
   private String enPassantTarget;      
   private int    halfMoveClock;
   private int    fullMoveNumber;
@@ -50,6 +51,7 @@ public class StandAloneGame {
 
   public void playHalfMove(String move) {
     int index;
+    String tmpEnPassantTarget = getEnPassantTarget();
     setEnPassantTarget(Local.STARTING_EN_PASSANT_TARGET);
     if (Pattern.matches("[a-h][1-8]", move)) {
       // pawn push
@@ -63,6 +65,7 @@ public class StandAloneGame {
             int toIndex = indexOf(file, rank);
             getBoard()[fromIndex] = Local.EMPTY;
             getBoard()[toIndex] = Local.WHITE_PAWN;
+            switchActive();
           }
           if (rank == 4) {
             index = indexOf(file, rank + 2);
@@ -72,6 +75,7 @@ public class StandAloneGame {
               setEnPassantTarget(notationOf(file, rank + 1));
               getBoard()[fromIndex] = Local.EMPTY;
               getBoard()[toIndex] = Local.WHITE_PAWN;
+              switchActive();
             }
           }
         case Local.BLACK:
@@ -81,6 +85,7 @@ public class StandAloneGame {
             int toIndex = indexOf(file, rank);
             getBoard()[fromIndex] = Local.EMPTY;
             getBoard()[toIndex] = Local.BLACK_PAWN;
+            switchActive();
           }
           if (rank == 3) {
             index = indexOf(file, rank - 2);
@@ -90,11 +95,20 @@ public class StandAloneGame {
               setEnPassantTarget(notationOf(file, rank - 1));
               getBoard()[fromIndex] = Local.EMPTY;
               getBoard()[toIndex] = Local.BLACK_PAWN;
+              switchActive();
             }
           }
       }
     } else if (Pattern.matches("[a-h]x[a-h][1-8]", move)) {
-      // TODO pawn taking
+      // pawn taking
+      int takerFile = (int)move.charAt(0) - (int)'a';
+      int takedFile = (int)move.charAt(2) - (int)'a';
+      int takedRank = 7 - ((int)move.charAt(3) - (int)'1');
+      if (getActive() == Local.WHITE) {
+        if (tmpEnPassantTarget == notationOf(takedFile, takedRank)) {
+      
+        }
+      }
     } 
     if (Pattern.matches("[RNBQK][a-h][1-8]", move)) {
       // TODO piece movement
@@ -111,7 +125,6 @@ public class StandAloneGame {
     } else if (Pattern.matches("[RNBQK][a-h][1-8]x[a-h][1-8]", move)) {
       // TODO
     }
-    switchActive();
     updateFEN();
   }
       
@@ -120,6 +133,18 @@ public class StandAloneGame {
   private void switchActive() {
     if (getActive() == Local.WHITE) setActive(Local.BLACK);
     else setActive(Local.WHITE);
+  }
+
+  private ArrayList<String> allowedHalfMoves() {
+    ArrayList<String> output = new ArrayList<String>();
+    switch (getActive()) {
+      case Local.WHITE:
+        for (int tile: getBoard()) {
+          
+        }
+      case Local.BLACK:
+    }
+    return output;
   }
 
   private void updateFEN() {
