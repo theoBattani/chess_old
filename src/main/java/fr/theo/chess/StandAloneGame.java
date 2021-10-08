@@ -1,19 +1,9 @@
 
 package fr.theo.chess;
 
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class StandAloneGame {
-
-  public static void main(String[] args) {
-    StandAloneGame game = new StandAloneGame();
-    System.out.println(game.getFEN());
-    game.playHalfMove("e4");
-    System.out.println(game.getFEN());
-    game.playHalfMove("e5");
-    System.out.println(game.getFEN());
-  }
 
   private int[]  board;                // piece placement (from white perspective)  
   private char   active;               // active color 
@@ -45,73 +35,20 @@ public class StandAloneGame {
   private void setFEN(String fen) {this.fen = fen;}
   private void setEnPassantTarget(String target) {this.enPassantTarget = target;}
 
-  public String notationOf(int file, int rank) {
-    return String.format("%c%d", (char) (file + (int)'a'), 8 - rank);
-  } 
-
   public void playHalfMove(String move) {
-    int index;
-    String tmpEnPassantTarget = getEnPassantTarget();
+    if (Pattern.matches("[a-h]x[a-h][1-8]", move)) takeWithPawn(move);
     setEnPassantTarget(Local.STARTING_EN_PASSANT_TARGET);
-    if (Pattern.matches("[a-h][1-8]", move)) {
-      // pawn push
-      int file = (int)move.charAt(0) - (int)'a';
-      int rank = 7 - ((int)move.charAt(1) - (int)'1');
-      switch (getActive()) {
-        case Local.WHITE:
-          index = indexOf(file, rank + 1);
-          if (getBoard()[index] == Local.WHITE_PAWN) {
-            int fromIndex = index;
-            int toIndex = indexOf(file, rank);
-            getBoard()[fromIndex] = Local.EMPTY;
-            getBoard()[toIndex] = Local.WHITE_PAWN;
-            switchActive();
-          }
-          if (rank == 4) {
-            index = indexOf(file, rank + 2);
-            if (getBoard()[index] == Local.WHITE_PAWN) {
-              int fromIndex = index;
-              int toIndex = indexOf(file, rank);
-              setEnPassantTarget(notationOf(file, rank + 1));
-              getBoard()[fromIndex] = Local.EMPTY;
-              getBoard()[toIndex] = Local.WHITE_PAWN;
-              switchActive();
-            }
-          }
-        case Local.BLACK:
-          index = indexOf(file, rank - 1);
-          if (getBoard()[index] == Local.BLACK_PAWN) {
-            int fromIndex = index;
-            int toIndex = indexOf(file, rank);
-            getBoard()[fromIndex] = Local.EMPTY;
-            getBoard()[toIndex] = Local.BLACK_PAWN;
-            switchActive();
-          }
-          if (rank == 3) {
-            index = indexOf(file, rank - 2);
-            if (getBoard()[index] == Local.BLACK_PAWN) {
-              int fromIndex = index;
-              int toIndex = indexOf(file, rank);
-              setEnPassantTarget(notationOf(file, rank - 1));
-              getBoard()[fromIndex] = Local.EMPTY;
-              getBoard()[toIndex] = Local.BLACK_PAWN;
-              switchActive();
-            }
-          }
-      }
-    } else if (Pattern.matches("[a-h]x[a-h][1-8]", move)) {
-      // pawn taking
-      int takerFile = (int)move.charAt(0) - (int)'a';
-      int takedFile = (int)move.charAt(2) - (int)'a';
-      int takedRank = 7 - ((int)move.charAt(3) - (int)'1');
-      if (getActive() == Local.WHITE) {
-        if (tmpEnPassantTarget == notationOf(takedFile, takedRank)) {
-      
-        }
-      }
-    } 
+    if (Pattern.matches("[a-h][1-8]", move)) pushPawn(move);
     if (Pattern.matches("[RNBQK][a-h][1-8]", move)) {
       // TODO piece movement
+      switch (getActive()) {
+        case Local.WHITE:
+
+          break;
+        case Local.BLACK:
+          incrementFullMoveNumber();
+          break;
+      }
     } else if (Pattern.matches("[RNBQK][a-h][a-h][1-8]", move)) {
       // TODO
     } else if (Pattern.matches("[RNBQK][1-8][a-h][1-8]", move)) {
@@ -129,22 +66,16 @@ public class StandAloneGame {
   }
       
   private int indexOf(int file, int rank) {return 8 * rank + file;}
+  private void incrementFullMoveNumber() {this.fullMoveNumber++;}
+  private void resetHalfMoveClock() {this.halfMoveClock = 0;}
+
+  private String notationOf(int file, int rank) {
+    return String.format("%c%d", (char) (file + (int)'a'), 8 - rank);
+  } 
 
   private void switchActive() {
     if (getActive() == Local.WHITE) setActive(Local.BLACK);
     else setActive(Local.WHITE);
-  }
-
-  private ArrayList<String> allowedHalfMoves() {
-    ArrayList<String> output = new ArrayList<String>();
-    switch (getActive()) {
-      case Local.WHITE:
-        for (int tile: getBoard()) {
-          
-        }
-      case Local.BLACK:
-    }
-    return output;
   }
 
   private void updateFEN() {
@@ -175,6 +106,114 @@ public class StandAloneGame {
     builder.append(" " + getHalfMoveClock());
     builder.append(" " + getFullMoveNumber());
     setFEN(builder.toString());
+  }
+
+  private void pushPawn(String move) {
+    int index;
+    int file = (int)move.charAt(0) - (int)'a';
+    int rank = 7 - ((int)move.charAt(1) - (int)'1');
+    switch (getActive()) {
+      case Local.WHITE:
+        index = indexOf(file, rank + 1);
+        if (getBoard()[index] == Local.WHITE_PAWN) {
+          int fromIndex = index;
+          int toIndex = indexOf(file, rank);
+          getBoard()[fromIndex] = Local.EMPTY;
+          getBoard()[toIndex] = Local.WHITE_PAWN;
+          switchActive();
+        }
+        if (rank == 4) {
+          index = indexOf(file, rank + 2);
+          if (getBoard()[index] == Local.WHITE_PAWN) {
+            int fromIndex = index;
+            int toIndex = indexOf(file, rank);
+            setEnPassantTarget(notationOf(file, rank + 1));
+            getBoard()[fromIndex] = Local.EMPTY;
+            getBoard()[toIndex] = Local.WHITE_PAWN;
+            switchActive();
+          }
+        }
+        break;
+      case Local.BLACK:
+        index = indexOf(file, rank - 1);
+        if (getBoard()[index] == Local.BLACK_PAWN) {
+          int fromIndex = index;
+          int toIndex = indexOf(file, rank);
+          getBoard()[fromIndex] = Local.EMPTY;
+          getBoard()[toIndex] = Local.BLACK_PAWN;
+          switchActive();
+        }
+        if (rank == 3) {
+          index = indexOf(file, rank - 2);
+          if (getBoard()[index] == Local.BLACK_PAWN) {
+            int fromIndex = index;
+            int toIndex = indexOf(file, rank);
+            setEnPassantTarget(notationOf(file, rank - 1));
+            getBoard()[fromIndex] = Local.EMPTY;
+            getBoard()[toIndex] = Local.BLACK_PAWN;
+            switchActive();
+          }
+        }
+        incrementFullMoveNumber();
+        break;
+    }
+    resetHalfMoveClock();
+  }
+
+  private void takeWithPawn(String move) {
+    int takerFile = (int)move.charAt(0) - (int)'a';
+    int takedFile = (int)move.charAt(2) - (int)'a';
+    int takedRank = 7 - ((int)move.charAt(3) - (int)'1');
+    if (Math.abs(takerFile - takedFile) != 1) return;
+    switch (getActive()) {
+      case Local.WHITE:
+        System.out.println(notationOf(takedFile, takedRank).length());
+        System.out.println(getEnPassantTarget().length());
+        if (getEnPassantTarget() == notationOf(takedFile, takedRank)) {
+          // TODO white en passant taking 
+          System.out.println("white en passant");
+          if (getBoard()[indexOf(takerFile, takedRank + 1)] == Local.WHITE_PAWN) {
+            int fromIndex = indexOf(takerFile, takedRank + 1);
+            int toIndex = indexOf(takedFile, takedRank);
+            getBoard()[fromIndex] = Local.EMPTY;
+            getBoard() [toIndex] = Local.WHITE_PAWN;
+            getBoard()[indexOf(takedFile, takedRank + 1)] = Local.EMPTY;
+            switchActive();
+          }
+        } else {
+          if (getBoard()[indexOf(takerFile, takedRank + 1)] == Local.WHITE_PAWN) {
+            int fromIndex = indexOf(takerFile, takedRank + 1);
+            int toIndex = indexOf(takedFile, takedRank);
+            getBoard()[fromIndex] = Local.EMPTY;
+            getBoard() [toIndex] = Local.WHITE_PAWN;
+            switchActive();
+          }
+        }
+        break;
+      case Local.BLACK:
+        if (getEnPassantTarget() == notationOf(takedFile, takedRank)) {
+          // TODO black en passant taking 
+          System.out.println("black en passant");
+          if (getBoard()[indexOf(takerFile, takedRank - 1)] == Local.BLACK_PAWN) {
+            int fromIndex = indexOf(takerFile, takedRank - 1);
+            int toIndex = indexOf(takedFile, takedRank);
+            getBoard()[fromIndex] = Local.EMPTY;
+            getBoard() [toIndex] = Local.BLACK_PAWN;
+            getBoard()[indexOf(takedFile, takedRank - 1)] = Local.EMPTY;
+            switchActive();
+          }
+        } else {
+          if (getBoard()[indexOf(takerFile, takedRank - 1)] == Local.BLACK_PAWN) {
+            int fromIndex = indexOf(takerFile, takedRank - 1);
+            int toIndex = indexOf(takedFile, takedRank);
+            getBoard()[fromIndex] = Local.EMPTY;
+            getBoard() [toIndex] = Local.BLACK_PAWN;
+            switchActive();
+          }
+        }
+        incrementFullMoveNumber();
+        break;
+    }
   }
 }
 
