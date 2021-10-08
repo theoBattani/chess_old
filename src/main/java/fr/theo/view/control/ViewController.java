@@ -53,7 +53,6 @@ public class ViewController {
   private void onWidth(Observable widthProperty) {
     // double width = ((DoubleExpression) widthProperty).getValue();
   }
-
   private void onHeight(Observable heightProperty) {
     double height = ((DoubleExpression) heightProperty).getValue();
     chessView.resize(height);

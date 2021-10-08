@@ -21,5 +21,11 @@ public class Test {
     System.out.println(game.getFEN());
     game.playHalfMove("cxd3");
     System.out.println(game.getFEN());
+    game.playHalfMove("a4");
+    System.out.println(game.getFEN());
+    game.playHalfMove("a5");
+    System.out.println(game.getFEN());
+    game.playHalfMove("Ra3");
+    System.out.println(game.getFEN());
   }
 }
