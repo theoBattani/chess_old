@@ -3,12 +3,12 @@ package fr.theo.chess;
 
 public class Local {
 
-  // Memo indices 
+  // Memo indices
   //
   //      0    1    2    3    4    5    6    7
   //   ┌────┬────┬────┬────┬────┬────┬────┬────┐
   // 0 │  0 │  1 │  2 │  3 │  4 │  5 │  6 │  7 │ 8
-  //   ├────┼────┼────┼────┼────┼────┼────┼────┤ 
+  //   ├────┼────┼────┼────┼────┼────┼────┼────┤
   // 1 │  8 │  9 │ 10 │ 11 │ 12 │ 13 │ 14 │ 15 │ 7
   //   ├────┼────┼────┼────┼────┼────┼────┼────┤
   // 2 │ 16 │ 17 │ 18 │ 19 │ 20 │ 21 │ 22 │ 23 │ 6
@@ -39,15 +39,15 @@ public static final String[] SQUARES_NOTATION = {
 
   // initial values
   public static final char   FIRST_ACTIVE = 'w';
-  public static final String STARTING_CASTLING_AVAILABILITY = "KQkq";            
+  public static final String STARTING_CASTLING_AVAILABILITY = "KQkq";
   public static final String STARTING_EN_PASSANT_TARGET = "-";
   public static final int    STARTING_HALF_MOVE_CLOCK = 0;
   public static final int    STARTING_FULL_MOVE_NUMBER = 1;
-  public static final String STARTING_FEN = "rnbqkbnr/"    + 
-                                            "pppppppp/"    + 
+  public static final String STARTING_FEN = "rnbqkbnr/"    +
+                                            "pppppppp/"    +
                                             "8/8/8/8/"     +
                                             "PPPPPPPP/"    +
-                                            "RNBQKBNR"     + 
+                                            "RNBQKBNR"     +
                                             " w KQkq - 0 1";
   public static final int[]  STARTING_BOARD = {
     114, 110,  98, 113, 107,  98, 110, 114,

@@ -7,8 +7,7 @@ public class Rook extends Piece {
     super(pieces, white, index);
   }
 
-  @Override
-  protected void computeValidTargets() {
+  @Override protected void computeValidTargets() {
     int x = this.getFileIndex();
     int y = this.getRankIndex();
     int i;
