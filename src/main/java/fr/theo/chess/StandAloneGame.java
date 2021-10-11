@@ -52,12 +52,12 @@ public class StandAloneGame {
     updateFEN();
   }
       
-  private void setActive(char active) {this.active = active;}
-  private void setFEN(String fen) {this.fen = fen;}
+  private void setActive(char active)            {this.active = active;}
+  private void setFEN(String fen)                {this.fen = fen;}
   private void setEnPassantTarget(String target) {this.enPassantTarget = target;}
-  private void incrementFullMoveNumber() {this.fullMoveNumber++;}
-  private void incrementHalfMoveClock() {this.halfMoveClock++;}
-  private void resetHalfMoveClock() {this.halfMoveClock = 0;}
+  private void resetHalfMoveClock()              {this.halfMoveClock = 0;}
+  private void incrementFullMoveNumber()         {this.fullMoveNumber++;}
+  private void incrementHalfMoveClock()          {this.halfMoveClock++;}
   private  int indexOf(int file, int rank) {return 8 * rank + file;}
 
   private String notationOf(int file, int rank) {
