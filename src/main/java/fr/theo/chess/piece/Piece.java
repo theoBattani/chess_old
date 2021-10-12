@@ -46,6 +46,7 @@ public abstract class Piece {
     }
     try {
       this.moveOnTarget(index);
+      this.game.toggleActive();
       for (Piece piece: this.pieces) {
         if (piece != null) {
           piece.computeIndices();

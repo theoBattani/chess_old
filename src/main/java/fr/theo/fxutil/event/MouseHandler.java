@@ -1,11 +1,21 @@
-package fr.theo.util.fxutil.event;
+package fr.theo.fxutil.event;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
+import javafx.scene.Scene;
+
 public abstract class MouseHandler implements EventHandler<MouseEvent> {
   
   protected double mouseX, mouseY;
+
+  public MouseHandler() {}
+  public MouseHandler(Scene scene) {
+    scene.setOnMousePressed(this);
+    scene.setOnMouseReleased(this);
+    scene.setOnMouseMoved(this);
+    scene.setOnMouseDragged(this);
+  }
 
   @Override
   public void handle(MouseEvent event) {

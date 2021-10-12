@@ -23,9 +23,10 @@ public class Pawn extends Piece {
           this.getValidIndices().add(enPassantTarget);
         }
       }
-      this.getValidIndices().add(this.getIndex() + 8);
-      if (this.getRankIndex() == 1) {
-        this.getValidIndices().add(this.getIndex() + 16);
+      if (this.addIfValid(this.getFileIndex(), this.getRankIndex() + 1)) {
+        if (this.getRankIndex() == 1) {
+          this.addIfValid(this.getFileIndex(), this.getRankIndex() + 2);
+        }
       }
     } else {
       if (enPassantTarget != -1) {
@@ -37,9 +38,10 @@ public class Pawn extends Piece {
           this.getValidIndices().add(enPassantTarget);
         }
       }
-      this.getValidIndices().add(this.getIndex() - 8);
-      if (this.getRankIndex() == 6) {
-        this.getValidIndices().add(this.getIndex() - 16);
+      if (this.addIfValid(this.getFileIndex(), this.getRankIndex() - 1)) {
+        if (this.getRankIndex() == 6) {
+          this.addIfValid(this.getFileIndex(), this.getRankIndex() - 2);
+        }
       }
     }
   }

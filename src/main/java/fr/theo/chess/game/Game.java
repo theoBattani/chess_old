@@ -13,11 +13,13 @@ import java.util.ArrayList;
 
 public class Game {
 
+
   private Piece[] pieces;
   private ArrayList<Piece> allPieces;
   private ArrayList<Piece> blackPieces;
   private ArrayList<Piece> whitePieces;
 
+  private boolean whiteActive = true;
   private int enPassantTarget;
 
   public Game() {
@@ -36,7 +38,11 @@ public class Game {
   public int getEnPassantTarget()          {return this.enPassantTarget;}
   public Piece getPieceByIndex(int index)  {return this.pieces[index];}
 
+  public boolean isWhiteActive() {return this.whiteActive;}
+
   public void setEnPassantTarget(int index) {this.enPassantTarget = index;}
+
+  public void toggleActive() {whiteActive = !whiteActive;}
 
   private ArrayList<Piece> allPieces() {
     ArrayList<Piece> output = new ArrayList<Piece>();
@@ -63,7 +69,7 @@ public class Game {
     for (int index = 48; index < 56; index++)
       this.pieces[index] = new Pawn(this, false, index);
     for (int index = 48; index < 64; index++) {
-      this.whitePieces.add(this.pieces[index]);
+      this.blackPieces.add(this.pieces[index]);
       this.allPieces.add(this.pieces[index]);
     }
   }

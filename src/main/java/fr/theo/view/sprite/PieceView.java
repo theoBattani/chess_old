@@ -2,7 +2,7 @@
 package fr.theo.view.sprite;
 
 import fr.theo.chess.piece.Piece;
-import fr.theo.util.fxutil.sprite.Sprite;
+import fr.theo.fxutil.sprite.Sprite;
 
 import java.util.ArrayList;
 
@@ -24,6 +24,7 @@ public class PieceView extends Sprite {
   public int getIndex() {return this.index;}
   public Piece getPiece() {return this.piece;}
   public ArrayList<Integer> getValidIndices() {return piece.getValidIndices();}
+  public boolean isWhite() {return this.piece.isWhite();}
 
   public void setPos() {
     this.index = this.piece.getIndex();
