@@ -3,20 +3,22 @@ package fr.theo.view.control.event;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-public class mouseHandler implements EventHandler<MouseEvent> {
+public abstract class MouseHandler implements EventHandler<MouseEvent> {
   
-  double mouseX, mouseY;
-  boolean onSelection = false;
+  protected double mouseX, mouseY;
 
   @Override
   public void handle(MouseEvent event) {
     mouseX = event.getX();
     mouseY = event.getY();
-
+    if (event.getEventType() == MouseEvent.MOUSE_PRESSED) mousePressed();
+    if (event.getEventType() == MouseEvent.MOUSE_RELEASED) mouseReleased();
+    if (event.getEventType() == MouseEvent.MOUSE_MOVED) mouseMoved();
+    if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) mouseDragged();
   }
 
-  private void select() {
-    
-  }
-
+  protected abstract void mousePressed();
+  protected abstract void mouseReleased();
+  protected abstract void mouseMoved();
+  protected abstract void mouseDragged();
 }

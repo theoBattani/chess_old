@@ -3,6 +3,7 @@ package fr.theo.view.control;
 
 import fr.theo.chess.game.Game;
 import fr.theo.view.ChessView;
+import fr.theo.view.control.event.MouseHandler;
 import fr.theo.view.sprite.PieceView;
 
 import java.util.ArrayList;
@@ -58,9 +59,8 @@ public class ViewController {
     stage.setMinWidth(chessView.getBoardView().getFitHeight()+16);
   }
 
-  private EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
+  private MouseHandler mouseHandler = new MouseHandler() {
 
-    double mouseX, mouseY;
     PieceView selection;
     boolean select = false;
     ArrayList<Rectangle> highlights;
@@ -70,65 +70,69 @@ public class ViewController {
     }
 
     @Override
-    public void handle(MouseEvent event) {
-      mouseX = event.getX();
-      mouseY = event.getY();
-      if (event.getEventType() == MouseEvent.MOUSE_MOVED) {
+    protected void mousePressed() {
+      int x = (int) Math.floor(mouseX / chessView.getTileSize());
+      int y = 7 - (int) Math.floor(mouseY / chessView.getTileSize());
+      int index = 8 * y + x;
+      if (!select) {
+        selection = chessView.getPieceAt(index);
+        if (selection != null) {
+          select = true;
+          selection.setFitWidth(chessView.getTileSize() * 1.5);
+          selection.setFitHeight(chessView.getTileSize() * 1.5);
+          selection.setX(mouseX - selection.getFitWidth() / 2);
+          selection.setY(mouseY - selection.getFitHeight() / 2);
+          selection.toFront();
+        }
+        if (select) {
+          for (int validIndex: selection.getValidIndices()) {
+            highlights.add(new Rectangle(
+              (validIndex % 8) * chessView.getTileSize(),
+              (7 - validIndex / 8) * chessView.getTileSize(),
+              chessView.getTileSize(),
+              chessView.getTileSize()
+            ));
+            for (Rectangle square: highlights) {
+              square.toFront();
+              square.setFill(null);
+              square.setStrokeWidth(4);
+              square.setStroke(Color.BLUE);
+            }
+          }
+          pane.getChildren().addAll(highlights);
+          select = true;
+        }
       }
-      if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+    }
+
+    @Override
+    protected void mouseReleased() {
+      int x = (int) Math.floor(mouseX / chessView.getTileSize());
+      int y = 7 - (int) Math.floor(mouseY / chessView.getTileSize());
+      int index = 8 * y + x;
+      if (select) {
+        chessView.dropAt(selection, index);
+        pane.getChildren().removeAll(highlights);
+        highlights.removeAll(highlights);
+        selection.setFitWidth(chessView.getTileSize());
+        selection.setFitHeight(chessView.getTileSize());
+        select = false;
+      }
+    }
+
+    @Override
+    protected void mouseMoved() {
+      // TODO Auto-generated method stub
+      
+    }
+
+    @Override
+    protected void mouseDragged() {
         if (select) {
           selection.setX(mouseX - selection.getFitWidth() / 2);
           selection.setY(mouseY - selection.getFitHeight() / 2);
           selection.toFront();
         }
-      }
-      if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
-        int x = (int) Math.floor(mouseX / chessView.getTileSize());
-        int y = 7 - (int) Math.floor(mouseY / chessView.getTileSize());
-        int index = 8 * y + x;
-        if (!select) {
-          selection = chessView.getPieceAt(index);
-          if (selection != null) {
-            select = true;
-            selection.setFitWidth(chessView.getTileSize() * 1.5);
-            selection.setFitHeight(chessView.getTileSize() * 1.5);
-            selection.setX(mouseX - selection.getFitWidth() / 2);
-            selection.setY(mouseY - selection.getFitHeight() / 2);
-            selection.toFront();
-          }
-          if (select) {
-            for (int validIndex: selection.getValidIndices()) {
-              highlights.add(new Rectangle(
-                (validIndex % 8) * chessView.getTileSize(),
-                (7 - validIndex / 8) * chessView.getTileSize(),
-                chessView.getTileSize(),
-                chessView.getTileSize()
-              ));
-              for (Rectangle square: highlights) {
-                square.toFront();
-                square.setFill(null);
-                square.setStrokeWidth(4);
-                square.setStroke(Color.BLUE);
-              }
-            }
-            pane.getChildren().addAll(highlights);
-            select = true;
-          }
-        }
-      }
-      if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
-        int x = (int) Math.floor(mouseX / chessView.getTileSize());
-        int y = 7 - (int) Math.floor(mouseY / chessView.getTileSize());
-        int index = 8 * y + x;
-        if (select) {
-          chessView.dropAt(selection, index);
-          pane.getChildren().removeAll(highlights);
-          highlights.removeAll(highlights);
-          selection.setFitWidth(chessView.getTileSize());
-          selection.setFitHeight(chessView.getTileSize());
-          select = false;
-        }
-      }
     }
   };
 }
