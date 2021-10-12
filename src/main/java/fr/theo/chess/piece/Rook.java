@@ -1,10 +1,12 @@
 
 package fr.theo.chess.piece;
 
+import fr.theo.chess.game.Game;
+
 public class Rook extends Piece {
 
-  public Rook(Piece[] pieces, boolean white, int index) {
-    super(pieces, white, index);
+  public Rook(Game game, boolean white, int index) {
+    super(game, white, index);
   }
 
   @Override protected void computeValidTargets() {

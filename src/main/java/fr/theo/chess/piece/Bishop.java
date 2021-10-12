@@ -1,10 +1,12 @@
 
 package fr.theo.chess.piece;
 
+import fr.theo.chess.game.Game;
+
 public class Bishop extends Piece {
 
-  public Bishop(Piece[] pieces, boolean white, int index) {
-    super(pieces, white, index);
+  public Bishop(Game game, boolean white, int index) {
+    super(game, white, index);
   }
 
   @Override protected void computeValidTargets() {

@@ -1,7 +1,7 @@
 
 package fr.theo.view;
 
-import fr.theo.chess.Game;
+import fr.theo.chess.game.Game;
 import fr.theo.local.Assets;
 import fr.theo.view.sprite.BoardView;
 import fr.theo.view.sprite.PieceView;

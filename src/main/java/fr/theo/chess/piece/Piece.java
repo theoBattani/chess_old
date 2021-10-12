@@ -1,12 +1,15 @@
 
 package fr.theo.chess.piece;
 
+import fr.theo.chess.game.Game;
+import fr.theo.chess.InvalidTargetException;
+
 import java.util.ArrayList;
 
-import fr.theo.chess.InvalidTargetException;
 
 public abstract class Piece {
 
+  protected Game game;
   private boolean white;
   private int index;
   private int rankIndex;
@@ -14,10 +17,11 @@ public abstract class Piece {
   private Piece[] pieces;
   private ArrayList<Integer> validIndices;
 
-  public Piece(Piece[] pieces, boolean white, int index) {
+  public Piece(Game game, boolean white, int index) {
+    this.game = game;
     this.white = white;
     this.index = index;
-    this.pieces = pieces;
+    this.pieces = game.getPieces();
     this.validIndices = new ArrayList<Integer>();
     this.computeIndices();
   }
@@ -32,6 +36,14 @@ public abstract class Piece {
   public void update() {this.computeTargets();}
 
   public void move(int index) {
+    game.setEnPassantTarget(-1);
+    if (this instanceof Pawn && Math.abs(this.index - index) > 1) {
+      if (this.isWhite()) {
+        game.setEnPassantTarget(this.getIndex() + 8);
+      } else {
+        game.setEnPassantTarget(this.getIndex() - 8);
+      }
+    }
     try {
       this.moveOnTarget(index);
       for (Piece piece: this.pieces) {
@@ -46,6 +58,8 @@ public abstract class Piece {
   }
 
   protected int indexOf(int x, int y) {return 8 * y + x;}
+  protected int fileOf(int index) {return index % 8;}
+  protected int rankOf(int index) {return index / 8;}
 
   protected void moveOnTarget(int targetIndex) throws InvalidTargetException {
     if (!targetIsValid(targetIndex)) throw new InvalidTargetException();
@@ -88,8 +102,8 @@ public abstract class Piece {
   }
 
   private void computeIndices() {
-    this.fileIndex = this.index % 8;
-    this.rankIndex = this.index / 8;
+    this.fileIndex = fileOf(this.index);
+    this.rankIndex = rankOf(this.index);
   }
 
   private void computeTargets() {

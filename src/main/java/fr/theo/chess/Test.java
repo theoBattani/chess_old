@@ -1,5 +1,7 @@
 package fr.theo.chess;
 
+import fr.theo.chess.game.StandAloneGame;
+
 public class Test {
 
   public static void main(String[] args) {

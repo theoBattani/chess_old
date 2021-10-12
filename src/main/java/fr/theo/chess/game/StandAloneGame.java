@@ -1,6 +1,7 @@
 
-package fr.theo.chess;
+package fr.theo.chess.game;
 
+import fr.theo.chess.Local;
 import java.util.regex.Pattern;
 
 public class StandAloneGame {

@@ -1,10 +1,12 @@
 
 package fr.theo.chess.piece;
 
+import fr.theo.chess.game.Game;
+
 public class King extends Piece {
 
-  public King(Piece[] pieces, boolean white, int index) {
-    super(pieces, white, index);
+  public King(Game game, boolean white, int index) {
+    super(game, white, index);
   }
 
   @Override
