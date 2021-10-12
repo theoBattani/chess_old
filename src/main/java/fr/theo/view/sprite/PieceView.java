@@ -2,6 +2,7 @@
 package fr.theo.view.sprite;
 
 import fr.theo.chess.piece.Piece;
+import fr.theo.util.fxutil.sprite.Sprite;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,5 @@
 
-package fr.theo.view.sprite;
+package fr.theo.util.fxutil.sprite;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;

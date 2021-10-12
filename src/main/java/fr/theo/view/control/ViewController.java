@@ -2,8 +2,8 @@
 package fr.theo.view.control;
 
 import fr.theo.chess.game.Game;
+import fr.theo.util.fxutil.event.MouseHandler;
 import fr.theo.view.ChessView;
-import fr.theo.view.control.event.MouseHandler;
 import fr.theo.view.sprite.PieceView;
 
 import java.util.ArrayList;
@@ -12,13 +12,11 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.beans.Observable;
 import javafx.beans.binding.DoubleExpression;
-import javafx.event.EventHandler;
 
 public class ViewController {
 
@@ -121,10 +119,7 @@ public class ViewController {
     }
 
     @Override
-    protected void mouseMoved() {
-      // TODO Auto-generated method stub
-      
-    }
+    protected void mouseMoved() {}
 
     @Override
     protected void mouseDragged() {
