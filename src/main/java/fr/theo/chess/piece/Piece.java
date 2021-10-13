@@ -6,7 +6,6 @@ import fr.theo.chess.InvalidTargetException;
 
 import java.util.ArrayList;
 
-
 public abstract class Piece {
 
   protected Game game;
