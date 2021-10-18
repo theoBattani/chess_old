@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 public class Game {
 
-
   private Piece[] pieces;
   private ArrayList<Piece> allPieces;
   private ArrayList<Piece> blackPieces;
